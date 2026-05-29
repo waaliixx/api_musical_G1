@@ -1,2 +1,2 @@
-pub mod Usuarios_Streaming;
-pub mod Playlists;
+pub mod usuarios_streaming;
+pub mod playlists;

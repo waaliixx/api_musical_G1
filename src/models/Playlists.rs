@@ -10,13 +10,13 @@ pub struct Playlists {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct NuevaPlaylist {
+pub struct nueva_playlist {
     pub nombre_lista: String,
     pub id_usuario: i32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ActualizarPlaylist {
+pub struct actualizar_playlist {
     pub id_playlist: i32,
     pub nombre_lista: String,
 }

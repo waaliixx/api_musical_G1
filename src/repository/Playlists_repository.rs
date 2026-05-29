@@ -1,12 +1,12 @@
-use sqlx::{PGPool, Row};
-use crate::models::Playlists::{ActualizarPlaylist, NuevaPlaylist, Playlists};
+use sqlx:: {PgPool, Row};
+use crate::models::playlists::{actualizar_playlist, nueva_playlist, Playlists};
 
 pub struct PlaylistsRepository {
-    pool: PGPool,
+    pool: PgPool,
 }
 
 impl PlaylistsRepository {
-    pub fn nuevo(pool: PGPool) -> Self {
+    pub fn new(pool: PgPool) -> Self {
         Self { pool }
     }
 
@@ -24,7 +24,7 @@ impl PlaylistsRepository {
         Ok(playlists)
     }
 
-    pub async fn crear_playlist(&self, nueva_playlist: NuevaPlaylist) -> sqlx::Result<Playlists> {
+    pub async fn crear_playlist(&self, nueva_playlist: nueva_playlist) -> sqlx::Result<Playlists> {
         let fila = sqlx::query("INSERT INTO playlists (nombre_lista, id_usuario) VALUES ($1, $2) RETURNING id_playlist, nombre_lista, id_usuario, fecha_creacion")
             .bind(&nueva_playlist.nombre_lista)
             .bind(nueva_playlist.id_usuario)
@@ -39,7 +39,7 @@ impl PlaylistsRepository {
         })
     }
 
-    pub async fn actualizar_playlist(&self, actualizar_playlist: ActualizarPlaylist) -> sqlx::Result<Playlists> {
+    pub async fn actualizar_playlist(&self, actualizar_playlist: actualizar_playlist) -> sqlx::Result<Playlists> {
         let fila = sqlx::query("UPDATE playlists SET nombre_lista = $1 WHERE id_playlist = $2 RETURNING id_playlist, nombre_lista, id_usuario, fecha_creacion")
             .bind(&actualizar_playlist.nombre_lista)
             .bind(actualizar_playlist.id_playlist)

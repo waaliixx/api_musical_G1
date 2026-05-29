@@ -1,4 +1,4 @@
-pub mod Playlists_repository;
-pub use Playlists_repository::PlaylistsRepository;
-pub mod Usuarios_Streaming_repository;
-pub use Usuarios_Streaming_repository::UsuariosStreamingRepository;
+pub mod playlists_repository;
+pub use playlists_repository::PlaylistsRepository;
+pub mod usuarios_streaming_repository;
+pub use usuarios_streaming_repository::UsuariosStreamingRepository;

@@ -1,5 +1,5 @@
 use sqlx:: {PgPool, Row};
-use crate::models::Usuarios_Streaming::{ActualizarUsuarioStreaming, NuevoUsuarioStreaming, UsuariosStreaming};
+use crate::models::usuarios_streaming::{ActualizarUsuarioStreaming, NuevoUsuarioStreaming, UsuariosStreaming};
 
 pub struct UsuariosStreamingRepository {
     pool: PgPool,
