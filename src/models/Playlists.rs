@@ -1,12 +1,13 @@
 use serde::{Deserialize, Serialize};
 use sqlx::FromRow;
+use chrono::NaiveDate;
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow, PartialEq)]
 pub struct Playlists {
     pub id_playlist: i32,
     pub nombre_lista: String,
     pub id_usuario: i32,
-    pub fecha_creacion: String,
+    pub fecha_creacion: NaiveDate,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

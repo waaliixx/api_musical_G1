@@ -1,11 +1,11 @@
 use sqlx:: {PgPool, Row};
 use crate::models::playlists::{actualizar_playlist, nueva_playlist, Playlists};
 
-pub struct PlaylistsRepository {
+pub struct playlists_repository {
     pool: PgPool,
 }
 
-impl PlaylistsRepository {
+impl playlists_repository {
     pub fn new(pool: PgPool) -> Self {
         Self { pool }
     }
