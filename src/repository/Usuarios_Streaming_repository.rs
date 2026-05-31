@@ -1,11 +1,11 @@
-use sqlx:: {PgPool, Row};
+use sqlx::{PgPool, Row};
 use crate::models::usuarios_streaming::{ActualizarUsuarioStreaming, NuevoUsuarioStreaming, UsuariosStreaming};
 
 pub struct UsuariosStreamingRepository {
     pool: PgPool,
 }
 impl UsuariosStreamingRepository {
-    pub fn nuevo(pool: PgPool) -> Self {
+    pub fn new(pool: PgPool) -> Self {
         Self { pool }
     }
 
@@ -14,11 +14,14 @@ impl UsuariosStreamingRepository {
             .fetch_all(&self.pool)
             .await?;
 
-        let usuarios_streaming = filas.into_iter().map(|fila| UsuariosStreaming {
-            id_usuario: fila.get("id_usuario"),
-            nombre_usuario: fila.get("nombre_usuario"),
-            tipo_suscripcion: fila.get("tipo_suscripcion"),
-        }).collect();
+        let usuarios_streaming = filas
+            .into_iter()
+            .map(|fila| UsuariosStreaming {
+                id_usuario: fila.get("id_usuario"),
+                nombre_usuario: fila.get("nombre_usuario"),
+                tipo_suscripcion: fila.get("tipo_suscripcion"),
+            })
+            .collect();
         Ok(usuarios_streaming)
     }
 
@@ -50,5 +53,36 @@ impl UsuariosStreamingRepository {
             nombre_usuario: fila.get("nombre_usuario"),
             tipo_suscripcion: fila.get("tipo_suscripcion"),
         })
+    }
+
+    pub async fn actualizar_usuario_streaming_por_id(&self, id_usuario: i32, actualizar_usuario: ActualizarUsuarioStreaming) -> sqlx::Result<UsuariosStreaming> {
+        let fila = sqlx::query("UPDATE usuarios_streaming SET nombre_usuario = $1, tipo_suscripcion = $2 WHERE id_usuario = $3 RETURNING id_usuario, nombre_usuario, tipo_suscripcion")
+            .bind(&actualizar_usuario.nombre_usuario)
+            .bind(&actualizar_usuario.tipo_suscripcion)
+            .bind(id_usuario)
+            .fetch_one(&self.pool)
+            .await?;
+
+        Ok(UsuariosStreaming {
+            id_usuario: fila.get("id_usuario"),
+            nombre_usuario: fila.get("nombre_usuario"),
+            tipo_suscripcion: fila.get("tipo_suscripcion"),
+        })
+    }
+
+    pub async fn eliminar_usuario_streaming(&self, id_usuario: i32) -> sqlx::Result<()> {
+        sqlx::query("DELETE FROM usuarios_streaming WHERE id_usuario = $1")
+            .bind(id_usuario)
+            .execute(&self.pool)
+            .await?;
+        Ok(())
+    }
+
+    pub async fn eliminar_usuario_streaming_por_id(&self, id_usuario: i32) -> sqlx::Result<()> {
+        sqlx::query("DELETE FROM usuarios_streaming WHERE id_usuario = $1")
+            .bind(id_usuario)
+            .execute(&self.pool)
+            .await?;
+        Ok(())
     }
 }
