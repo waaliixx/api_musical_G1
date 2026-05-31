@@ -8,7 +8,7 @@ use crate::service::playlists_service::{
     crear_playlist, 
     actualizar_playlist, 
     eliminar_playlist, 
-    eliminar_playlist_por_usuario,
+    obtener_playlist_por_id,
 };
 
 pub fn playlists_router(pool: PgPool) -> Router {
@@ -17,6 +17,6 @@ pub fn playlists_router(pool: PgPool) -> Router {
         .route("/api/playlists", post(crear_playlist))
         .route("/api/playlists", put(actualizar_playlist))
         .route("/api/playlists/{id_playlist}", delete(eliminar_playlist))
-        .route("/api/playlists/usuario/{id_usuario}", delete(eliminar_playlist_por_usuario))
+        .route("/api/playlists/{id_playlist}", get(obtener_playlist_por_id))
         .with_state(pool)
 }

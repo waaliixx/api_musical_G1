@@ -39,14 +39,11 @@ Json<bool> {
     }
 }
 
-pub async fn eliminar_playlist_por_usuario(State(pool): State<PgPool>, Path(id_usuario): Path<i32>) -> 
-Json<bool> {
+pub async fn obtener_playlist_por_id(State(pool): State<PgPool>, Path(id_playlist): Path<i32>) -> 
+Json<Option<Playlists>> {
     let playlists = PlaylistsRepository::new(pool);
-    match playlists.eliminar_playlist(id_usuario).await {
-        Ok(_) => Json(true),
-        Err(_) => Json(false),
+    match playlists.obtener_playlist_por_id(id_playlist).await {
+        Ok(playlist) => Json(Some(playlist)),
+        Err(_) => Json(None),
     }
 }
-
-
-

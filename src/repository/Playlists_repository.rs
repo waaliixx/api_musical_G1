@@ -62,4 +62,17 @@ impl playlists_repository {
         Ok(())
     }
 
+    pub async fn obtener_playlist_por_id(&self, id_playlist: i32) -> sqlx::Result<Playlists> {
+        let fila = sqlx::query("SELECT id_playlist, nombre_lista, id_usuario, fecha_creacion FROM playlists WHERE id_playlist = $1")
+            .bind(id_playlist)
+            .fetch_one(&self.pool)
+            .await?;
+
+        Ok(Playlists {
+            id_playlist: fila.get("id_playlist"),
+            nombre_lista: fila.get("nombre_lista"),
+            id_usuario: fila.get("id_usuario"),
+            fecha_creacion: fila.get("fecha_creacion"),
+        })
+    }
 }

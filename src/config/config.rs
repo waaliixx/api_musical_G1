@@ -7,8 +7,6 @@ use dotenvy::dotenv;
 use sqlx::postgres::PgPoolOptions;
 use std::env;
 
-//postgresql://postgres.nsusasmjcdcszttqnglu:nZGahirNl1bwmiN5@aws-1-us-east-2.pooler.supabase.com:6543/postgres
-
 pub fn obtener_url_base_datos() -> String {
     dotenv().ok();
     env::var("DATABASE_URL").expect("DATABASE_URL no está configurada en el archivo .env")

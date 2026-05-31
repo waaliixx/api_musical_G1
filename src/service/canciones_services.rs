@@ -1,6 +1,6 @@
 use axum::{extract::{Path, State}, Json};
 use sqlx::PgPool;
-use crate::models::Canciones::{Canciones, NuevaCancion, ActualizarCancion};
+use crate::models::canciones::{Canciones, NuevaCancion, ActualizarCancion};
 use crate::repository::CancionesRepository;
 
 pub async fn obtener_canciones(State(pool): State<PgPool>) ->Json<Vec<Canciones>>{

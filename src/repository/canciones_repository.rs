@@ -1,5 +1,5 @@
 use sqlx::{PgPool, Row};
-use crate::models::Canciones::{Canciones, NuevaCancion, ActualizarCancion};
+use crate::models::canciones::{Canciones, NuevaCancion, ActualizarCancion};
 
 pub struct CancionesRepository{
     pool: PgPool,
