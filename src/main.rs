@@ -9,6 +9,7 @@ mod repository;
 
 use controller::playlists_controller::playlists_router;
 use controller::canciones_controller::canciones_router;
+use controller::artistas_controller::artistas_router;
 
 use config::config::crear_pool;
 
