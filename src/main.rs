@@ -8,6 +8,7 @@ mod repository;
 //cambiar por los controllers que tengas
 
 use controller::playlists_controller::playlists_router;
+use controller::canciones_controller::canciones_router;
 
 use config::config::crear_pool;
 
@@ -24,15 +25,14 @@ async fn main() {
         .await
         .expect("No se pudo conectar a la base de datos");
 
-    axum::serve(listener, playlists_router(pool))
+    axum::serve(listener, unificar_routers(pool))
         .await
         .expect("Error al iniciar el servidor");
 }
 
-/*
+
 fn unificar_routers(pool: sqlx::PgPool) -> axum::Router {
-    let mut router1 = pais_router(pool.clone());
-    let router2 = persona_router(pool.clone());
+    let mut router1 = playlists_router(pool.clone());
+    let router2 = canciones_router(pool.clone());
     router1.merge(router2)
 }
-*/
