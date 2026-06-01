@@ -16,6 +16,6 @@ pub fn artistas_router(pool: PgPool) -> Router {
         .route("/api/artistas", get(obtener_artistas))
         .route("/api/artistas", post(crear_artista))
         .route("/api/artistas/{id_artista}", delete(eliminar_artista))
-        .route("api/artistas/{id_artista}", put(actualizar_artista))
+        .route("/api/artistas/{id_artista}", put(actualizar_artista))
         .with_state(pool)
 }
