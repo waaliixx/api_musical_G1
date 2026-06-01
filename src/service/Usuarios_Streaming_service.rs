@@ -1,7 +1,7 @@
 use axum::{extract::{Path, State}, Json};
 use sqlx::PgPool;
-use crate::models::usuarios_streaming::{ActualizarUsuarioStreaming, NuevoUsuarioStreaming, UsuariosStreaming};
-use crate::repository::usuarios_streaming_repository::UsuariosStreamingRepository;
+use crate::models::Usuarios_Streaming::{ActualizarUsuarioStreaming, NuevoUsuarioStreaming, UsuariosStreaming};
+use crate::repository::Usuarios_Streaming_repository::UsuariosStreamingRepository;
 
 pub async fn obtener_usuarios_streaming(State(pool): State<PgPool>) -> Json<Vec<UsuariosStreaming>> {
     let repo = UsuariosStreamingRepository::new(pool);

@@ -1,7 +1,7 @@
 use axum::{extract::{Path, State}, Json};
 use sqlx::PgPool;
-use crate::models::playlists::{Playlists, actualizar_playlist, nueva_playlist};
-use crate::repository::playlists_repository::playlists_repository as PlaylistsRepository;
+use crate::models::Playlists::{Playlists, actualizar_playlist, nueva_playlist};
+use crate::repository::Playlists_repository::playlists_repository as PlaylistsRepository;
 
 pub async fn obtener_playlist(State(pool): State<PgPool>) -> Json<Vec<Playlists>> {
     let playlists = PlaylistsRepository::new(pool);
