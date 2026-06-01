@@ -10,6 +10,8 @@ mod repository;
 use controller::playlists_controller::playlists_router;
 use controller::canciones_controller::canciones_router;
 use controller::artistas_controller::artistas_router;
+use controller::albumes_controller::album_router;
+
 
 use config::config::crear_pool;
 
@@ -35,5 +37,10 @@ async fn main() {
 fn unificar_routers(pool: sqlx::PgPool) -> axum::Router {
     let mut router1 = playlists_router(pool.clone());
     let router2 = canciones_router(pool.clone());
-    router1.merge(router2)
+    let router3 = album_router(pool.clone());
+    
+    router1 = router1.merge(router2);
+    router1.merge(router3)
 }
+
+
